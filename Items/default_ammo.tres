@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="Ammo_Item_Data" format=3 uid="uid://blw4k411lwpo1"]
+
+[ext_resource type="Script" uid="uid://ddh0b4st5eqcp" path="res://inv/ammo_item_data.gd" id="1_vnt5j"]
+
+[resource]
+script = ExtResource("1_vnt5j")
+calliber = "default"
+name = "default ammo"
+description = "default ammo"
+stackable = true
+metadata/_custom_type_script = "uid://ddh0b4st5eqcp"

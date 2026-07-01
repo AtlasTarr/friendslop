@@ -1,0 +1,34 @@
+[gd_scene format=3 uid="uid://nwpm7ayk7wpm"]
+
+[ext_resource type="Script" uid="uid://bbhsp0sy2echg" path="res://misc/mm.gd" id="1_e2ge8"]
+[ext_resource type="PackedScene" uid="uid://ccsvsjofwq2k6" path="res://player/player_transfer.tscn" id="2_ubyum"]
+
+[node name="Control" type="Control" unique_id=723947599]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_e2ge8")
+PS = ExtResource("2_ubyum")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=381593902]
+layout_mode = 0
+offset_right = 144.175
+offset_bottom = 101.0
+
+[node name="Button" type="Button" parent="VBoxContainer" unique_id=572463488]
+layout_mode = 2
+text = "host"
+
+[node name="Button2" type="Button" parent="VBoxContainer" unique_id=734580711]
+layout_mode = 2
+text = "join"
+
+[node name="LineEdit" type="LineEdit" parent="VBoxContainer" unique_id=656892218]
+layout_mode = 2
+placeholder_text = "lobby ID"
+
+[connection signal="pressed" from="VBoxContainer/Button" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/Button2" to="." method="_on_button_2_pressed"]

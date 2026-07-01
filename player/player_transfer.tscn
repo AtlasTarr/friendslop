@@ -1,0 +1,273 @@
+[gd_scene format=3 uid="uid://ccsvsjofwq2k6"]
+
+[ext_resource type="Script" uid="uid://dcfltavcr5ys5" path="res://player/player_transfer.gd" id="1_dhpt7"]
+[ext_resource type="Resource" uid="uid://cibs2lri0irhq" path="res://player/Default_stats.tres" id="2_kn42j"]
+[ext_resource type="Script" uid="uid://bhm3yrdex0vjq" path="res://inv/inventory_data.gd" id="3_ajvde"]
+[ext_resource type="Script" uid="uid://cmggf10ug5sb1" path="res://inv/slot_data.gd" id="3_xofl5"]
+[ext_resource type="Script" uid="uid://krxnlt1ghj13" path="res://inv/equip_helmet_data.gd" id="4_2kbyl"]
+[ext_resource type="Script" uid="uid://2dvo687s7t66" path="res://inv/equip_body_data.gd" id="5_tcj2c"]
+[ext_resource type="PackedScene" uid="uid://bqyyk4562x2po" path="res://misc/look_target.tscn" id="6_clk7w"]
+[ext_resource type="Script" uid="uid://dgpsi2468g2uv" path="res://inv/equip_weapon_data.gd" id="7_tm100"]
+[ext_resource type="PackedScene" uid="uid://0xbcimc5g4lh" path="res://Assets/Characters/Player/anim_model.tscn" id="9_dvgi7"]
+[ext_resource type="PackedScene" uid="uid://d0xb5raoo3mwn" path="res://misc/UI.tscn" id="10_s7avd"]
+
+[sub_resource type="Resource" id="Resource_t5xeg"]
+script = ExtResource("4_2kbyl")
+slot_datas = Array[ExtResource("3_xofl5")]([null])
+
+[sub_resource type="Resource" id="Resource_dgrsf"]
+script = ExtResource("5_tcj2c")
+slot_datas = Array[ExtResource("3_xofl5")]([null])
+
+[sub_resource type="Resource" id="Resource_yxw3n"]
+script = ExtResource("7_tm100")
+slot_datas = Array[ExtResource("3_xofl5")]([null])
+
+[sub_resource type="Resource" id="Resource_4ivdq"]
+script = ExtResource("3_ajvde")
+slot_datas = Array[ExtResource("3_xofl5")]([null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null])
+
+[sub_resource type="Resource" id="Resource_t4iyv"]
+script = ExtResource("4_2kbyl")
+slot_datas = Array[ExtResource("3_xofl5")]([null])
+
+[sub_resource type="Resource" id="Resource_adu3j"]
+script = ExtResource("5_tcj2c")
+slot_datas = Array[ExtResource("3_xofl5")]([null])
+
+[sub_resource type="Resource" id="Resource_ircls"]
+script = ExtResource("7_tm100")
+slot_datas = Array[ExtResource("3_xofl5")]([null])
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_n4ek1"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_phy4h"]
+
+[sub_resource type="Animation" id="Animation_dvgi7"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../Pivot:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0.008004801, 0.7981962, -0.1878568)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_7nrcd"]
+_data = {
+&"RESET": SubResource("Animation_dvgi7")
+}
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_s7avd"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath(".:rotation")
+properties/1/spawn = true
+properties/1/replication_mode = 1
+properties/2/path = NodePath("Dwarf Walk/AnimationTree:parameters/conditions/RB")
+properties/2/spawn = true
+properties/2/replication_mode = 1
+properties/3/path = NodePath("Dwarf Walk/AnimationTree:parameters/conditions/WB")
+properties/3/spawn = true
+properties/3/replication_mode = 1
+properties/4/path = NodePath("Dwarf Walk/AnimationTree:parameters/conditions/idle")
+properties/4/spawn = true
+properties/4/replication_mode = 1
+properties/5/path = NodePath("Dwarf Walk/AnimationTree:parameters/conditions/jump")
+properties/5/spawn = true
+properties/5/replication_mode = 1
+properties/6/path = NodePath("Dwarf Walk/AnimationTree:parameters/conditions/left")
+properties/6/spawn = true
+properties/6/replication_mode = 1
+properties/7/path = NodePath("Dwarf Walk/AnimationTree:parameters/conditions/right")
+properties/7/spawn = true
+properties/7/replication_mode = 1
+properties/8/path = NodePath("Dwarf Walk/AnimationTree:parameters/conditions/running")
+properties/8/spawn = true
+properties/8/replication_mode = 1
+properties/9/path = NodePath("Dwarf Walk/AnimationTree:parameters/conditions/walking")
+properties/9/spawn = true
+properties/9/replication_mode = 1
+
+[node name="player" type="CharacterBody3D" unique_id=1811905029 groups=["actor", "player"]]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
+collision_layer = 2
+safe_margin = 0.01
+script = ExtResource("1_dhpt7")
+_playerdata = ExtResource("2_kn42j")
+old_helmet_inventory = SubResource("Resource_t5xeg")
+old_body_inventory = SubResource("Resource_dgrsf")
+old_weapon_inventory = SubResource("Resource_yxw3n")
+inventory = SubResource("Resource_4ivdq")
+equip_helmet_data = SubResource("Resource_t4iyv")
+equip_body_data = SubResource("Resource_adu3j")
+equip_weapon_data = SubResource("Resource_ircls")
+
+[node name="Pivot" type="Node3D" parent="." unique_id=452251928]
+transform = Transform3D(1.0000002, 0, 0, 0, 1.0000002, 0, 0, 0, 1, 0.008004801, 0.7981962, -0.1878568)
+
+[node name="gun_container" type="Node3D" parent="Pivot" unique_id=1267505150]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.629326, -0.262489, -0.896693)
+
+[node name="Camera" type="Camera3D" parent="Pivot" unique_id=1721234971]
+transform = Transform3D(0.9999782, 0.0066185277, 0.00015648367, -0.006609803, 0.9994378, -0.032869235, -0.00037394743, 0.032867387, 0.9994597, 0, 0, 0)
+cull_mask = 3
+fov = 77.1708
+near = 0.001
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="Pivot/Camera" unique_id=149374659]
+offset_right = 1920.0
+offset_bottom = 1080.0
+
+[node name="SubViewport" type="SubViewport" parent="Pivot/Camera/SubViewportContainer" unique_id=1748659910]
+transparent_bg = true
+handle_input_locally = false
+size = Vector2i(1920, 1080)
+render_target_update_mode = 4
+
+[node name="Camera" type="Camera3D" parent="Pivot/Camera/SubViewportContainer/SubViewport" unique_id=846050754]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.552635, -0.509076)
+visible = false
+cull_mask = 1048572
+fov = 77.1708
+near = 0.001
+
+[node name="interact_ray" type="RayCast3D" parent="Pivot/Camera" unique_id=1661367739]
+target_position = Vector3(0, 0, -2)
+collision_mask = 5
+
+[node name="look_target" parent="." unique_id=2134792113 instance=ExtResource("6_clk7w")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0533988, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=775919802]
+shape = SubResource("CapsuleShape3D_n4ek1")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=862861846]
+visible = false
+layers = 2
+mesh = SubResource("CapsuleMesh_phy4h")
+
+[node name="quest_container" type="Node" parent="." unique_id=391729952]
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=1786671821]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -2.0
+offset_top = -2.0
+offset_right = 2.0
+offset_bottom = 2.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(1, 0.894118, 0.87451, 0.501961)
+
+[node name="Timer" type="Timer" parent="." unique_id=282329230]
+wait_time = 0.01
+one_shot = true
+autostart = true
+
+[node name="hunger_timer" type="Timer" parent="." unique_id=1489549985]
+wait_time = 8.0
+autostart = true
+
+[node name="thirst_timer" type="Timer" parent="." unique_id=494080031]
+wait_time = 8.0
+autostart = true
+
+[node name="CSGSphere3D" type="CSGSphere3D" parent="." unique_id=1653456246]
+transform = Transform3D(0.98420084, 0, 0.17705569, 0, 1, 0, -0.17705569, 0, 0.98420084, 0.16362591, 0.04435414, -0.3393737)
+visible = false
+radius = 0.24559715
+radial_segments = 35
+rings = 12
+
+[node name="CSGSphere3D2" type="CSGSphere3D" parent="." unique_id=1881989513]
+transform = Transform3D(0.98420084, 0, 0.17705569, 0, 1, 0, -0.17705569, 0, 0.98420084, -0.1683415, 0.04435414, -0.27965343)
+visible = false
+radius = 0.28447798
+radial_segments = 35
+rings = 12
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="." unique_id=124607481]
+avoidance_enabled = true
+
+[node name="Dwarf Walk" parent="." unique_id=362918074 instance=ExtResource("9_dvgi7")]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, -0.013633258, -0.88868976, -0.09949207)
+
+[node name="Skeleton3D" parent="Dwarf Walk" index="0" unique_id=2090433029]
+bones/0/position = Vector3(0.0048885643, 1.0160728, 0.015563931)
+bones/0/rotation = Quaternion(-0.0019834575, 0.013091594, -0.047286402, 0.99879366)
+bones/1/rotation = Quaternion(-0.069102325, -0.01251386, 0.02576805, 0.9971982)
+bones/2/rotation = Quaternion(0.00647042, -0.005674917, 0.051593695, 0.9986312)
+bones/3/rotation = Quaternion(0.019410355, -0.00042421004, 0.051495533, 0.9984845)
+bones/4/rotation = Quaternion(0.009170458, -0.00017066287, -0.019068616, 0.9997761)
+bones/5/position = Vector3(0, -0.587, -0.042)
+bones/5/rotation = Quaternion(0.0134589495, 0.014290461, -0.06968656, 0.9973758)
+bones/7/rotation = Quaternion(-0.54022276, 0.55748385, -0.5124066, -0.36716557)
+bones/8/rotation = Quaternion(0.5312848, -0.049852833, -0.09829471, 0.8399937)
+bones/9/rotation = Quaternion(-1.5976309e-07, 7.8932416e-08, -0.15416537, 0.98804516)
+bones/10/rotation = Quaternion(0.095392324, 0.10383173, 0.07025263, 0.98751396)
+bones/11/rotation = Quaternion(0.19658977, -0.116280764, -0.20132571, 0.9525226)
+bones/12/rotation = Quaternion(-0.041711837, 0.13277522, 0.24590431, 0.95925075)
+bones/15/rotation = Quaternion(0.06822339, -0.00016634868, 0.040861093, 0.99683297)
+bones/16/rotation = Quaternion(0.17837512, 0.0010759506, 0.024845755, 0.98364824)
+bones/19/rotation = Quaternion(0.13670813, 0.0026637227, 0.0768151, 0.98762506)
+bones/20/rotation = Quaternion(0.2869127, 0.00232886, 0.035657372, 0.9572901)
+bones/23/rotation = Quaternion(0.22920488, 0.00207736, 0.104038, 0.96780014)
+bones/24/rotation = Quaternion(0.34307486, -0.0023524421, 0.036972746, 0.93857723)
+bones/27/rotation = Quaternion(0.30691472, -0.0015654867, 0.14734839, 0.94026035)
+bones/28/rotation = Quaternion(0.38721427, 0.0027163844, 0.037454765, 0.9212247)
+bones/31/rotation = Quaternion(0.58859307, 0.510259, -0.47148913, 0.41339085)
+bones/32/rotation = Quaternion(0.64292413, 0.07156376, 0.0326393, 0.76188046)
+bones/33/rotation = Quaternion(-2.0949278e-08, 4.3552696e-08, 0.1262574, 0.99199754)
+bones/34/rotation = Quaternion(0.087339744, -0.24011414, -0.011672021, 0.96673715)
+bones/35/rotation = Quaternion(0.19656414, 0.11639424, 0.20134963, 0.952509)
+bones/36/rotation = Quaternion(-0.041683387, -0.13289778, -0.24590902, 0.95923376)
+bones/39/rotation = Quaternion(0.068222865, 0.0001660772, -0.04086037, 0.996833)
+bones/40/rotation = Quaternion(0.1783755, -0.0010759854, -0.024844393, 0.9836482)
+bones/43/rotation = Quaternion(0.13670889, -0.0026640699, -0.07681451, 0.987625)
+bones/44/rotation = Quaternion(0.28691325, -0.0023292333, -0.035655495, 0.95729005)
+bones/47/rotation = Quaternion(0.22920504, -0.002077965, -0.10403678, 0.96780014)
+bones/48/rotation = Quaternion(0.34307516, 0.002352144, -0.03697055, 0.9385772)
+bones/51/rotation = Quaternion(0.3069154, 0.0015650524, -0.14734606, 0.9402604)
+bones/52/rotation = Quaternion(0.38721433, -0.0027171797, -0.03745296, 0.9212247)
+bones/55/rotation = Quaternion(-0.04142065, 0.024854405, 0.9942989, -0.09506051)
+bones/56/rotation = Quaternion(-0.14082588, 0.046417013, 0.025101935, 0.9886271)
+bones/57/rotation = Quaternion(0.5331469, -0.030623188, -0.063184045, 0.84310406)
+bones/58/rotation = Quaternion(0.34005737, 4.3685404e-08, -2.0950394e-07, 0.9404047)
+bones/60/rotation = Quaternion(0.114295095, 0.17374715, 0.9703702, -0.123005345)
+bones/61/rotation = Quaternion(-0.24932384, -0.07743721, 0.03504575, 0.9646828)
+bones/62/rotation = Quaternion(0.48661485, -0.06430106, -0.07779352, 0.867767)
+bones/63/rotation = Quaternion(0.33913153, 5.878457e-08, -2.9153603e-07, 0.940739)
+
+[node name="Physical Bone mixamorig_Head" parent="Dwarf Walk/Skeleton3D/PhysicalBoneSimulator3D" parent_id_path=PackedInt32Array(362918074, 179035898) index="0" unique_id=1706729053]
+transform = Transform3D(-0.9999289, -0.0060424292, 0.010283387, -0.0011436606, 0.9067775, 0.42160803, -0.01187228, 0.4215663, -0.90671986, -0.08063391, 1.0089352, -0.09130981)
+collision_layer = 0
+collision_mask = 0
+joint_offset = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.1405888, -0.080810845, -0.107435286)
+body_offset = Transform3D(-0.99879384, -0.03346162, 0.035931364, -0.012956638, 0.8854945, 0.46446973, -0.047358926, 0.463444, -0.88485986, -0.139263, 0.119636446, -0.064272)
+joint_constraints/damping = 4.35
+
+[node name="AnimationPlayer" parent="Dwarf Walk" index="1" unique_id=843911789]
+libraries/ = SubResource("AnimationLibrary_7nrcd")
+
+[node name="UI" parent="." unique_id=1680158284 instance=ExtResource("10_s7avd")]
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=1716826444]
+replication_config = SubResource("SceneReplicationConfig_s7avd")
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="timeout" from="hunger_timer" to="." method="on_hunger_timer_timeout"]
+[connection signal="timeout" from="thirst_timer" to="." method="on_thirst_timer_timeout"]
+
+[editable path="Dwarf Walk"]
+[editable path="UI"]

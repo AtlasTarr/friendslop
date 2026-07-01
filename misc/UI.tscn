@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://d0xb5raoo3mwn"]
+
+[ext_resource type="Script" uid="uid://6scoxtqke5li" path="res://misc/UI.gd" id="1_1bvo6"]
+[ext_resource type="PackedScene" uid="uid://cfwtyx6wee72l" path="res://misc/inventory_interact.tscn" id="2_drwsa"]
+
+[node name="UI" type="CanvasLayer" unique_id=1680158284]
+script = ExtResource("1_1bvo6")
+
+[node name="inventory_interface" parent="." unique_id=1315762599 instance=ExtResource("2_drwsa")]
+visible = false

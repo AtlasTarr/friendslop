@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="Gun_Data" format=3 uid="uid://dwweld7sb6wb6"]
+
+[ext_resource type="Script" uid="uid://cu3ohhvq8yjdw" path="res://inv/gun_item_data.gd" id="1_fod8p"]
+[ext_resource type="Texture2D" uid="uid://d2si8ffe50kev" path="res://icon.svg" id="2_78gpb"]
+[ext_resource type="PackedScene" uid="uid://dk8sxpp4glcnu" path="res://inv/test_gun_veiw_model.tscn" id="3_xvx0f"]
+
+[resource]
+script = ExtResource("1_fod8p")
+calliber = "default"
+cycle_length = 0.1
+muzzle_velocity = 100.0
+mag_size = 10
+veiw_model = ExtResource("3_xvx0f")
+name = "defalut_gun"
+texture = ExtResource("2_78gpb")
+metadata/_custom_type_script = "uid://cu3ohhvq8yjdw"

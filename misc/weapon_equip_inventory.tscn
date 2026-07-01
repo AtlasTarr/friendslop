@@ -1,0 +1,21 @@
+[gd_scene format=3 uid="uid://bi5uvsjiulp7f"]
+
+[ext_resource type="StyleBox" uid="uid://bx5xr5uw54xat" path="res://Items/inv_theme.tres" id="1_mo5ht"]
+[ext_resource type="Script" uid="uid://c2mf0s3m45052" path="res://inv/inventory.gd" id="2_si135"]
+
+[node name="inventory" type="PanelContainer" unique_id=1377552423]
+offset_right = 40.0
+offset_bottom = 40.0
+theme_override_styles/panel = ExtResource("1_mo5ht")
+script = ExtResource("2_si135")
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=269751981]
+layout_mode = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="item_grid" type="GridContainer" parent="MarginContainer" unique_id=520945406]
+layout_mode = 2
+columns = 6

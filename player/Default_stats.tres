@@ -1,0 +1,50 @@
+[gd_resource type="Resource" script_class="PlayerData" format=3 uid="uid://cibs2lri0irhq"]
+
+[ext_resource type="Script" uid="uid://bqx0bb1flkceh" path="res://Assets/Characters/Player/PlayerDataResource.gd" id="1_5i5bl"]
+[ext_resource type="Script" uid="uid://bhm3yrdex0vjq" path="res://inv/inventory_data.gd" id="1_drufd"]
+[ext_resource type="Script" uid="uid://cmggf10ug5sb1" path="res://inv/slot_data.gd" id="2_1nu2v"]
+[ext_resource type="Script" uid="uid://2dvo687s7t66" path="res://inv/equip_body_data.gd" id="2_t6w4h"]
+[ext_resource type="Script" uid="uid://krxnlt1ghj13" path="res://inv/equip_helmet_data.gd" id="4_87pqx"]
+[ext_resource type="Script" uid="uid://dgpsi2468g2uv" path="res://inv/equip_weapon_data.gd" id="5_yudh2"]
+[ext_resource type="Resource" uid="uid://dwweld7sb6wb6" path="res://Items/Default_gun.tres" id="6_i3tjq"]
+[ext_resource type="Resource" uid="uid://blw4k411lwpo1" path="res://Items/default_ammo.tres" id="7_t6w4h"]
+
+[sub_resource type="Resource" id="Resource_78gpb"]
+script = ExtResource("2_t6w4h")
+slot_datas = Array[ExtResource("2_1nu2v")]([null])
+metadata/_custom_type_script = "uid://2dvo687s7t66"
+
+[sub_resource type="Resource" id="Resource_fod8p"]
+script = ExtResource("4_87pqx")
+slot_datas = Array[ExtResource("2_1nu2v")]([null])
+metadata/_custom_type_script = "uid://krxnlt1ghj13"
+
+[sub_resource type="Resource" id="Resource_xvx0f"]
+script = ExtResource("5_yudh2")
+slot_datas = Array[ExtResource("2_1nu2v")]([null])
+metadata/_custom_type_script = "uid://dgpsi2468g2uv"
+
+[sub_resource type="Resource" id="Resource_t6w4h"]
+script = ExtResource("2_1nu2v")
+item_data = ExtResource("6_i3tjq")
+metadata/_custom_type_script = "uid://cmggf10ug5sb1"
+
+[sub_resource type="Resource" id="Resource_vnt5j"]
+script = ExtResource("2_1nu2v")
+item_data = ExtResource("7_t6w4h")
+quantity = 100
+metadata/_custom_type_script = "uid://cmggf10ug5sb1"
+
+[sub_resource type="Resource" id="Resource_2dcwq"]
+script = ExtResource("1_drufd")
+slot_datas = Array[ExtResource("2_1nu2v")]([SubResource("Resource_t6w4h"), SubResource("Resource_vnt5j"), null, null, null, null, null, null, null])
+metadata/_custom_type_script = "uid://bhm3yrdex0vjq"
+
+[resource]
+script = ExtResource("1_5i5bl")
+current_level = "Lobby"
+inventory_data = SubResource("Resource_2dcwq")
+equip_helmet_data = SubResource("Resource_fod8p")
+equip_body_data = SubResource("Resource_78gpb")
+equip_weapon_data = SubResource("Resource_xvx0f")
+metadata/_custom_type_script = "uid://bqx0bb1flkceh"
