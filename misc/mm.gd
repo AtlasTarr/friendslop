@@ -2,21 +2,20 @@ extends Control
 
 var lobby_id: int = 819273891938
 var peer = ENetMultiplayerPeer.new()
-const port = 8891
+const port = 8890
 @export var PS: PackedScene
 
 @onready var line_edit: LineEdit = $VBoxContainer/LineEdit
 
 func _on_button_pressed() -> void:
 	self.hide()
-	Noray.connect_to_host($VBoxContainer/LineEdit2.text, port)
+	Noray.connect_to_host("localhost", port)
 	Noray.register_host()
-	Noray.register_remote()
+	await Noray.register_remote(port)
 	peer.create_server(Noray.local_port)
 	multiplayer.multiplayer_peer = peer
 	add_player(multiplayer.get_unique_id())
 	Noray.on_connect_nat.connect(add_player)
-	print("ID:",Noray.oid)
 
 func add_player(peer_id):
 	var player = PS.instantiate()
@@ -26,6 +25,8 @@ func add_player(peer_id):
 
 func _on_button_2_pressed() -> void:
 	self.hide()
-	Noray.connect_nat($VBoxContainer/LineEdit.text)
-	peer.create_client($VBoxContainer/LineEdit.text,9999)
+	Noray.connect_to_host($VBoxContainer/LineEdit.text, port)
+	Noray.register_host()
+	Noray.register_remote()
+	peer.create_client($VBoxContainer/LineEdit.text, Noray.local_port)
 	multiplayer.multiplayer_peer = peer
