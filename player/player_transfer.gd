@@ -57,7 +57,7 @@ func _enter_tree() -> void:
 
 func _ready():
 	if !is_multiplayer_authority(): return
-	camera.current
+	camera.current = true
 	speed = _playerdata.base_speed
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 		## sets the mentioned inventory data
