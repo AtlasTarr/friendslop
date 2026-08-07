@@ -3,8 +3,6 @@
 [ext_resource type="Script" uid="uid://gd6mff1l2ajt" path="res://Levels/test_scene.gd" id="1_x6ugl"]
 [ext_resource type="PackedScene" uid="uid://ccsvsjofwq2k6" path="res://player/player_transfer.tscn" id="2_vyyyl"]
 [ext_resource type="PackedScene" uid="uid://nwpm7ayk7wpm" path="res://misc/MM.tscn" id="3_ut3x2"]
-[ext_resource type="Script" uid="uid://cy006uvidc4y" path="res://addons/tube/tube_client.gd" id="4_hkx0k"]
-[ext_resource type="Resource" uid="uid://f81okmp0sxuu" path="res://friendslop.tres" id="5_jyd6i"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_e6h1a"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -63,14 +61,6 @@ shape = SubResource("BoxShape3D_fmvpc")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.1606007, 0, 6.604981)
 mesh = SubResource("BoxMesh_ljq0q")
 surface_material_override/0 = SubResource("StandardMaterial3D_x6ugl")
-
-[node name="MP_manager" type="Node" parent="." unique_id=573429615 node_paths=PackedStringArray("multiplayer_root_node")]
-script = ExtResource("4_hkx0k")
-context = ExtResource("5_jyd6i")
-peer_signaling_timeout = 30.0
-peer_signaling_max_attempts = 5
-multiplayer_root_node = NodePath("..")
-metadata/_custom_type_script = "uid://cy006uvidc4y"
 
 [connection signal="pressed" from="Control/VBoxContainer/Button" to="." method="_on_button_pressed"]
 [connection signal="pressed" from="Control/VBoxContainer/Button2" to="." method="_on_button_2_pressed"]

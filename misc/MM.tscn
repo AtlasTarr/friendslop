@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://bbhsp0sy2echg" path="res://misc/mm.gd" id="1_e2ge8"]
 [ext_resource type="PackedScene" uid="uid://ccsvsjofwq2k6" path="res://player/player_transfer.tscn" id="2_ubyum"]
+[ext_resource type="Texture2D" uid="uid://b4o7vx0n8db1s" path="res://addons/tube/icons/tube_client.svg" id="3_4ma8r"]
 
 [node name="Control" type="Control" unique_id=723947599]
 layout_mode = 3
@@ -13,26 +14,53 @@ grow_vertical = 2
 script = ExtResource("1_e2ge8")
 PS = ExtResource("2_ubyum")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=381593902]
-layout_mode = 0
-offset_right = 144.175
-offset_bottom = 101.0
+[node name="Panel" type="PanelContainer" parent="." unique_id=636132392]
+custom_minimum_size = Vector2(173.17, 240.49)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -86.585
+offset_top = -68.0
+offset_right = 86.585
+offset_bottom = 68.0
+grow_horizontal = 2
+grow_vertical = 2
 
-[node name="Button" type="Button" parent="VBoxContainer" unique_id=572463488]
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel" unique_id=381593902]
 layout_mode = 2
-text = "host"
 
-[node name="Button2" type="Button" parent="VBoxContainer" unique_id=734580711]
+[node name="SessionID" type="LineEdit" parent="Panel/VBoxContainer" unique_id=656892218]
+unique_name_in_owner = true
+layout_mode = 2
+placeholder_text = "Session ID"
+
+[node name="Username" type="LineEdit" parent="Panel/VBoxContainer" unique_id=725270193]
+unique_name_in_owner = true
+layout_mode = 2
+placeholder_text = "Username"
+max_length = 15
+
+[node name="HSeparator2" type="HSeparator" parent="Panel/VBoxContainer" unique_id=234500452]
+layout_mode = 2
+theme_override_constants/separation = 15
+
+[node name="Join" type="Button" parent="Panel/VBoxContainer" unique_id=734580711]
+unique_name_in_owner = true
 layout_mode = 2
 text = "join"
 
-[node name="LineEdit" type="LineEdit" parent="VBoxContainer" unique_id=656892218]
+[node name="HSeparator" type="HSeparator" parent="Panel/VBoxContainer" unique_id=469119215]
 layout_mode = 2
-placeholder_text = "Host IP"
+theme_override_constants/separation = 15
 
-[node name="LineEdit2" type="LineEdit" parent="VBoxContainer" unique_id=900362117]
+[node name="Host" type="Button" parent="Panel/VBoxContainer" unique_id=572463488]
+unique_name_in_owner = true
 layout_mode = 2
-placeholder_text = "Join IP"
+text = "host"
+icon = ExtResource("3_4ma8r")
 
-[connection signal="pressed" from="VBoxContainer/Button" to="." method="_on_button_pressed"]
-[connection signal="pressed" from="VBoxContainer/Button2" to="." method="_on_button_2_pressed"]
+[connection signal="pressed" from="Panel/VBoxContainer/Join" to="." method="_on_button_2_pressed"]
+[connection signal="pressed" from="Panel/VBoxContainer/Host" to="." method="_on_button_pressed"]

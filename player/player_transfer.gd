@@ -49,18 +49,15 @@ var defence: float
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = 9.8 * mass
 var running: bool = false
-var tube_client:TubeClient 
 
 @onready var inventory_interface = $UI/inventory_interface
 
 func _enter_tree() -> void:
-	tube_client = get_tree().root.get_node("/root/lobby/MP_manager")
-	$UI/TubeInspector.client = tube_client
-	tube_client.set_multiplayer_authority(int(name), true)
+	set_multiplayer_authority(int(name))
 
 func _ready():
-	if !tube_client.is_multiplayer_authority(): 
-		print("not auth") 
+	if !is_multiplayer_authority(): 
+		print(get_multiplayer_authority()," is not auth of", self.name) 
 		return
 	camera.current = true
 	speed = _playerdata.base_speed
@@ -89,7 +86,7 @@ func _ready():
 
 
 func toggle_player_details(external_inventory_owner = null):
-	if !tube_client.is_multiplayer_authority(): return
+	if !is_multiplayer_authority(): return
 	inventory_interface.visible = not inventory_interface.visible
 	
 	if inventory_interface.visible:
@@ -105,7 +102,7 @@ func toggle_player_details(external_inventory_owner = null):
 		inventory_interface.clear_external_inventory_owner()
 
 func damage(damage: float, source: Object):
-	if !tube_client.is_multiplayer_authority(): return
+	if !is_multiplayer_authority(): return
 	var real_damage = damage - defence
 	if real_damage >0:
 		@warning_ignore("narrowing_conversion")
@@ -115,7 +112,7 @@ func damage(damage: float, source: Object):
 	death_state_checker(source)
 
 func death_state_checker(damage_source: Object):
-	if !tube_client.is_multiplayer_authority(): return
+	if !is_multiplayer_authority(): return
 	if _playerdata.health <= 0:
 		if "shot_by" in damage_source:
 			var shot_by = damage_source.shot_by
@@ -124,12 +121,12 @@ func death_state_checker(damage_source: Object):
 		queue_free()
 
 func heal(heal_amount: int):
-	if !tube_client.is_multiplayer_authority(): return
+	if !is_multiplayer_authority(): return
 	_playerdata.health += heal_amount
 
 
 func _unhandled_input(event):
-	if !tube_client.is_multiplayer_authority(): return
+	if !is_multiplayer_authority(): return
 	if event is InputEventMouseMotion and Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED:
 		rotate_y(-event.relative.x * mouse_sensitivity)
 		pivot.rotate_x(-event.relative.y * mouse_sensitivity)
@@ -147,30 +144,30 @@ func _physics_process(delta):
 
 
 	if Input.is_action_just_pressed("crouch"):
-		if !tube_client.is_multiplayer_authority(): return
+		if !is_multiplayer_authority(): return
 		temp_scale = 0.5
 		speed = _playerdata.crouch_speed
 		self.global_transform.origin.y -= 0.5
 	if Input.is_action_just_pressed("dash"):
-		if !tube_client.is_multiplayer_authority(): return
+		if !is_multiplayer_authority(): return
 		add_velocity(-camera.global_transform.basis.z*10)
 	if Input.is_action_just_released("crouch"):
-		if !tube_client.is_multiplayer_authority(): return
+		if !is_multiplayer_authority(): return
 		temp_scale = 1.0
 		speed = _playerdata.base_speed
 	if Input.is_action_just_pressed("inventory"):
-		if !tube_client.is_multiplayer_authority(): return
+		if !is_multiplayer_authority(): return
 		toggle_player_details()
 	
 	for child in gun_container.get_children():
 		if !UI_active:
 			if Input.is_action_pressed("shoot"):
-				if !tube_client.is_multiplayer_authority(): return
+				if !is_multiplayer_authority(): return
 				if "gun_data" in child:
 					child.shoot(delta)
 	
 	if Input.is_action_just_pressed("refresh_weapon"):
-		if !tube_client.is_multiplayer_authority(): return
+		if !is_multiplayer_authority(): return
 		refresh_weapon()
 	
 
@@ -180,14 +177,14 @@ func _physics_process(delta):
 	update_weapon_equip()
 
 	if Input.is_action_pressed("sprint"):
-		if !tube_client.is_multiplayer_authority(): return
+		if !is_multiplayer_authority(): return
 		speed = _playerdata.run_speed
 		var fov = lerp(camera.fov, base_fov + 20, delta+ 0.1)
 		camera.fov = fov
 		running = true
 		
 	elif Input.is_action_just_released("sprint"):
-		if !tube_client.is_multiplayer_authority(): return
+		if !is_multiplayer_authority(): return
 		speed = _playerdata.base_speed
 		running = false
 	elif camera.fov != base_fov:
@@ -203,7 +200,7 @@ func _physics_process(delta):
 	_playerdata.inventory_data.slot_datas = inventory.slot_datas
 
 func Move(delta):
-	if !tube_client.is_multiplayer_authority(): return
+	if !is_multiplayer_authority(): return
 	var input_dir = Input.get_vector("left", "right", "forward", "backward")
 	var direction = (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
 	if is_on_floor():
@@ -250,7 +247,7 @@ func Move(delta):
 	move_and_slide()
 
 func anim_state_clear():
-	if !tube_client.is_multiplayer_authority(): return
+	if !is_multiplayer_authority(): return
 	anim_tree.set("parameters/conditions/walking", false)
 	anim_tree.set("parameters/conditions/idle", false)
 	anim_tree.set("parameters/conditions/jump", false)
@@ -261,7 +258,7 @@ func anim_state_clear():
 	anim_tree.set("parameters/conditions/WB", false)
 
 func interact():
-	if !tube_client.is_multiplayer_authority(): return
+	if !is_multiplayer_authority(): return
 	if interact_ray.is_colliding():
 		var collider = interact_ray.get_collider()
 		if  collider.is_in_group("DialougeHolder"):
@@ -276,11 +273,11 @@ func get_drop_direction() -> Vector3:
 
 
 func add_velocity(a_velocity: Vector3):
-	if !tube_client.is_multiplayer_authority(): return
+	if !is_multiplayer_authority(): return
 	velocity = velocity+a_velocity
 
 func _on_timer_timeout():
-	if !tube_client.is_multiplayer_authority(): return
+	if !is_multiplayer_authority(): return
 	inventory.force_update()
 	equip_helmet_data.force_update()
 	old_helmet_inventory.force_update()

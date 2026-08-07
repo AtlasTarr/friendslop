@@ -20,6 +20,7 @@ config/icon="res://icon.svg"
 Network="*uid://bmh23y5bcm38m"
 Noray="*uid://gu4bv4tgms3x"
 PacketHandshake="*uid://tt3j25a05n7c"
+Global="*uid://c74mo36fj3vdd"
 
 [display]
 
