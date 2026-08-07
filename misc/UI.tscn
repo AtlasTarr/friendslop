@@ -2,9 +2,22 @@
 
 [ext_resource type="Script" uid="uid://6scoxtqke5li" path="res://misc/UI.gd" id="1_1bvo6"]
 [ext_resource type="PackedScene" uid="uid://cfwtyx6wee72l" path="res://misc/inventory_interact.tscn" id="2_drwsa"]
+[ext_resource type="PackedScene" uid="uid://dujkendqt6ls1" path="res://addons/tube/tube_inspector.tscn" id="2_xxa2b"]
 
 [node name="UI" type="CanvasLayer" unique_id=1680158284]
 script = ExtResource("1_1bvo6")
+
+[node name="TubeInspector" parent="." unique_id=407051256 node_paths=PackedStringArray("shortcut_context") instance=ExtResource("2_xxa2b")]
+visible = false
+top_level = true
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -524.0
+offset_right = 0.0
+offset_bottom = 697.0
+grow_horizontal = 0
+shortcut_context = NodePath(".")
 
 [node name="inventory_interface" parent="." unique_id=1315762599 instance=ExtResource("2_drwsa")]
 visible = false

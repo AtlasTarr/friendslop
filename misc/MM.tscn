@@ -28,7 +28,11 @@ text = "join"
 
 [node name="LineEdit" type="LineEdit" parent="VBoxContainer" unique_id=656892218]
 layout_mode = 2
-placeholder_text = "lobby ID"
+placeholder_text = "Host IP"
+
+[node name="LineEdit2" type="LineEdit" parent="VBoxContainer" unique_id=900362117]
+layout_mode = 2
+placeholder_text = "Join IP"
 
 [connection signal="pressed" from="VBoxContainer/Button" to="." method="_on_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/Button2" to="." method="_on_button_2_pressed"]

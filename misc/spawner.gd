@@ -12,5 +12,5 @@ func spawn():
 	if "transform" in object:
 		object.transform.origin = self.global_transform.origin
 	spawned_objects.append(object)
-	var root = get_tree().get_first_node_in_group("level")
-	root.add_child(object)
+	var root = get_tree().root.get_node("/root/lobby")
+	root.add_child(object, true)

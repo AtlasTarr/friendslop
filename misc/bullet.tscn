@@ -6,23 +6,31 @@
 
 [sub_resource type="SphereMesh" id="SphereMesh_gn85b"]
 
-[node name="Bullet" type="RigidBody3D"]
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_fo33e"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+
+[node name="Bullet" type="RigidBody3D" unique_id=1836307974]
 collision_layer = 0
 collision_mask = 3
 contact_monitor = true
 max_contacts_reported = 6
 script = ExtResource("1_47gqk")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=784215512]
 transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)
 shape = SubResource("SphereShape3D_g11pd")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="CollisionShape3D"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="CollisionShape3D" unique_id=539598491]
 mesh = SubResource("SphereMesh_gn85b")
 
-[node name="RayCast3D" type="RayCast3D" parent="."]
+[node name="RayCast3D" type="RayCast3D" parent="." unique_id=1933980843]
 collision_mask = 7
 
-[node name="Timer" type="Timer" parent="."]
+[node name="Timer" type="Timer" parent="." unique_id=1442944082]
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=879024955]
+replication_config = SubResource("SceneReplicationConfig_fo33e")
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

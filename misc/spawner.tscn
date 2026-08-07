@@ -2,5 +2,5 @@
 
 [ext_resource type="Script" uid="uid://41enxiclx8cg" path="res://misc/spawner.gd" id="1_t8c8o"]
 
-[node name="Spawner" type="Node3D"]
+[node name="Spawner" type="Node3D" unique_id=862687445]
 script = ExtResource("1_t8c8o")
