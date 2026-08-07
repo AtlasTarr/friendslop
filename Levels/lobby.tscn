@@ -62,7 +62,4 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.1606007, 0, 6.604981)
 mesh = SubResource("BoxMesh_ljq0q")
 surface_material_override/0 = SubResource("StandardMaterial3D_x6ugl")
 
-[connection signal="pressed" from="Control/VBoxContainer/Button" to="." method="_on_button_pressed"]
-[connection signal="pressed" from="Control/VBoxContainer/Button2" to="." method="_on_button_2_pressed"]
-
 [editable path="Control"]
