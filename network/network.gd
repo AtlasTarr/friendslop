@@ -6,7 +6,7 @@ const TUBE_CONTEXT = preload("res://friendslop.tres")
 var enet_peer := ENetMultiplayerPeer.new()
 var tube_client := TubeClient.new()
 var tube_enabled := true
-var turn_enabled := false : set = set_turn_enabled
+#var turn_enabled := false : set = set_turn_enabled
 
 var new_offline := OfflineMultiplayerPeer.new()
 var new_http_client := HTTPRequest.new()
@@ -16,11 +16,11 @@ var IP_ADDRESS = '127.0.0.1'
 
 func _ready() -> void:
 	new_http_client.request_completed.connect(_on_request_completed)
-	get_tree().root.add_child.call_deferred(new_http_client)
+	get_tree().root.add_child.call_deferred(new_http_client, true)
 
 	if tube_enabled:
 		tube_client.context = TUBE_CONTEXT
-		get_tree().root.add_child.call_deferred(tube_client)
+		get_tree().root.add_child.call_deferred(tube_client,true)
 
 
 func tube_create():
@@ -53,9 +53,7 @@ func on_connected_to_server():
 	add_player(multiplayer.get_unique_id())
 
 func add_player(peer_id: int):
-	if peer_id == 1 and multiplayer.multiplayer_peer is ENetMultiplayerPeer:
-		return
-	
+	print("player added")
 	var new_player = PLAYER.instantiate()
 	new_player.name = str(peer_id)
 
@@ -66,9 +64,9 @@ func add_player(peer_id: int):
 	get_tree().current_scene.add_child(new_player, true)
 
 func remove_player(peer_id):
-	if peer_id == 1:
-		leave_server()
-		return
+	#if peer_id == 1:
+		#leave_server()
+		#return
 	
 	var players: Array[Node] = get_tree().get_nodes_in_group('Players')
 	var player_to_remove = players.find_custom(func(item): return item.name == str(peer_id))
@@ -103,9 +101,9 @@ func _on_request_completed(_result, _response_code, _headers, body):
 		tube_client.context.turn_servers.append(temp_ice)
 		prints("DEBUG", tube_client.context.turn_servers)
 
-func set_turn_enabled(is_enabled: bool):
-	tube_client.context.turn_servers.clear()
-	if is_enabled and temp_ice:
-		tube_client.context.turn_servers.append(temp_ice)
-	elif is_enabled:
-		new_http_client.request("https://api.androodev.com/turn")
+#func set_turn_enabled(is_enabled: bool):
+	#tube_client.context.turn_servers.clear()
+	#if is_enabled and temp_ice:
+		#tube_client.context.turn_servers.append(temp_ice)
+	#elif is_enabled:
+		#new_http_client.request("https://api.androodev.com/turn")

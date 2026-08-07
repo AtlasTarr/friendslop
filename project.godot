@@ -15,6 +15,10 @@ run/main_scene="uid://cu4gt8ywt2n3q"
 config/features=PackedStringArray("4.7", "Forward Plus")
 config/icon="res://icon.svg"
 
+[audio]
+
+buses/default_bus_layout=""
+
 [autoload]
 
 Network="*uid://bmh23y5bcm38m"
@@ -29,7 +33,7 @@ window/stretch/aspect="expand"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/netfox.internals/plugin.cfg", "res://addons/netfox.noray/plugin.cfg", "res://addons/tube/plugin.cfg")
+enabled=PackedStringArray("res://addons/tube/plugin.cfg")
 
 [input]
 
@@ -93,6 +97,10 @@ shoot={
 "events": [Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"button_mask":0,"position":Vector2(0, 0),"global_position":Vector2(0, 0),"factor":1.0,"button_index":1,"canceled":false,"pressed":false,"double_click":false,"script":null)
 ]
 }
+
+[network]
+
+tls/enable_tls_v1.3=false
 
 [physics]
 

@@ -13,9 +13,7 @@ var peer = ENetMultiplayerPeer.new()
 @onready var children = self.get_children(true)
 @onready var name_array: PackedStringArray
 
-@onready var player = find_child("player")
-
-func on_inventory_interface_drop_slot_data(slot_data, all: bool):
+func on_inventory_interface_drop_slot_data(player: Node,slot_data, all: bool):
 	var _pick_up = pickup.instantiate()
 	_pick_up.slot_data = slot_data.duplicate()
 	if all == false:

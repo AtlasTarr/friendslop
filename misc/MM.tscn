@@ -1,7 +1,6 @@
 [gd_scene format=3 uid="uid://nwpm7ayk7wpm"]
 
 [ext_resource type="Script" uid="uid://bbhsp0sy2echg" path="res://misc/mm.gd" id="1_e2ge8"]
-[ext_resource type="PackedScene" uid="uid://ccsvsjofwq2k6" path="res://player/player_transfer.tscn" id="2_ubyum"]
 [ext_resource type="Texture2D" uid="uid://b4o7vx0n8db1s" path="res://addons/tube/icons/tube_client.svg" id="3_4ma8r"]
 
 [node name="Control" type="Control" unique_id=723947599]
@@ -12,7 +11,6 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_e2ge8")
-PS = ExtResource("2_ubyum")
 
 [node name="Panel" type="PanelContainer" parent="." unique_id=636132392]
 custom_minimum_size = Vector2(173.17, 240.49)
@@ -61,6 +59,11 @@ unique_name_in_owner = true
 layout_mode = 2
 text = "host"
 icon = ExtResource("3_4ma8r")
+
+[node name="quit" type="Button" parent="Panel/VBoxContainer" unique_id=1280284982]
+unique_name_in_owner = true
+layout_mode = 2
+text = "quit"
 
 [connection signal="pressed" from="Panel/VBoxContainer/Join" to="." method="_on_button_2_pressed"]
 [connection signal="pressed" from="Panel/VBoxContainer/Host" to="." method="_on_button_pressed"]
