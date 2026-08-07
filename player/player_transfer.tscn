@@ -10,7 +10,6 @@
 [ext_resource type="Script" uid="uid://dgpsi2468g2uv" path="res://inv/equip_weapon_data.gd" id="7_tm100"]
 [ext_resource type="PackedScene" uid="uid://0xbcimc5g4lh" path="res://Assets/Characters/Player/anim_model.tscn" id="9_dvgi7"]
 [ext_resource type="PackedScene" uid="uid://d0xb5raoo3mwn" path="res://misc/UI.tscn" id="10_s7avd"]
-[ext_resource type="Script" uid="uid://cy006uvidc4y" path="res://addons/tube/tube_client.gd" id="11_6st3h"]
 
 [sub_resource type="Resource" id="Resource_t5xeg"]
 script = ExtResource("4_2kbyl")
@@ -251,11 +250,11 @@ bones/62/rotation = Quaternion(0.48661485, -0.06430106, -0.07779352, 0.867767)
 bones/63/rotation = Quaternion(0.33913153, 5.878457e-08, -2.9153603e-07, 0.940739)
 
 [node name="Physical Bone mixamorig_Head" parent="Dwarf Walk/Skeleton3D/PhysicalBoneSimulator3D" parent_id_path=PackedInt32Array(362918074, 179035898) index="0" unique_id=1706729053]
-transform = Transform3D(-0.9999289, -0.006042367, 0.010283423, -0.001143693, 0.90678114, 0.42160016, -0.011872277, 0.42155838, -0.90672356, -0.08070204, 1.0089521, -0.09131536)
+transform = Transform3D(-0.99992895, -0.006042397, 0.010283479, -0.0011437002, 0.9067813, 0.4215999, -0.01187234, 0.42155817, -0.9067237, -0.080703765, 1.0089532, -0.09131666)
 collision_layer = 0
 collision_mask = 0
-joint_offset = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.140657, -0.080825225, -0.10744605)
-body_offset = Transform3D(-0.99879384, -0.03346133, 0.03593164, -0.0129566705, 0.88549846, 0.46446204, -0.047358923, 0.46343625, -0.8848639, -0.13933113, 0.11965277, -0.064279154)
+joint_offset = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.14065875, -0.08082568, -0.10744764)
+body_offset = Transform3D(-0.99879384, -0.03346136, 0.03593171, -0.012956674, 0.88549864, 0.46446183, -0.047358993, 0.46343604, -0.88486403, -0.13933283, 0.11965388, -0.06428047)
 joint_constraints/damping = 4.35
 
 [node name="AnimationPlayer" parent="Dwarf Walk" index="1" unique_id=843911789]
@@ -265,10 +264,6 @@ libraries/ = SubResource("AnimationLibrary_7nrcd")
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=1716826444]
 replication_config = SubResource("SceneReplicationConfig_s7avd")
-
-[node name="TubeClient" type="Node" parent="." unique_id=856139342]
-script = ExtResource("11_6st3h")
-metadata/_custom_type_script = "uid://cy006uvidc4y"
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
 [connection signal="timeout" from="hunger_timer" to="." method="on_hunger_timer_timeout"]
