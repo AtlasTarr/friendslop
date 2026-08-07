@@ -95,6 +95,18 @@ properties/9/path = NodePath("Dwarf Walk/AnimationTree:parameters/conditions/wal
 properties/9/spawn = true
 properties/9/replication_mode = 1
 
+[sub_resource type="QuadMesh" id="QuadMesh_fmvpc"]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_ljq0q"]
+viewport_path = NodePath("MeshInstance3D2/SubViewport")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_s7avd"]
+resource_local_to_scene = true
+transparency = 1
+shading_mode = 0
+albedo_texture = SubResource("ViewportTexture_ljq0q")
+billboard_mode = 1
+
 [node name="player" type="CharacterBody3D" unique_id=1811905029 groups=["actor", "player"]]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
 collision_layer = 2
@@ -250,11 +262,11 @@ bones/62/rotation = Quaternion(0.48661485, -0.06430106, -0.07779352, 0.867767)
 bones/63/rotation = Quaternion(0.33913153, 5.878457e-08, -2.9153603e-07, 0.940739)
 
 [node name="Physical Bone mixamorig_Head" parent="Dwarf Walk/Skeleton3D/PhysicalBoneSimulator3D" parent_id_path=PackedInt32Array(362918074, 179035898) index="0" unique_id=1706729053]
-transform = Transform3D(-0.99992895, -0.006042397, 0.010283479, -0.0011437002, 0.9067813, 0.4215999, -0.01187234, 0.42155817, -0.9067237, -0.080703765, 1.0089532, -0.09131666)
+transform = Transform3D(-0.9999289, -0.006042421, 0.010283395, -0.0011437666, 0.9067816, 0.42159915, -0.011872273, 0.42155743, -0.906724, -0.08070627, 1.008956, -0.09131768)
 collision_layer = 0
 collision_mask = 0
-joint_offset = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.14065875, -0.08082568, -0.10744764)
-body_offset = Transform3D(-0.99879384, -0.03346136, 0.03593171, -0.012956674, 0.88549864, 0.46446183, -0.047358993, 0.46343604, -0.88486403, -0.13933283, 0.11965388, -0.06428047)
+joint_offset = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.14066124, -0.08082785, -0.107449636)
+body_offset = Transform3D(-0.99879384, -0.033461355, 0.03593164, -0.012956744, 0.88549894, 0.4644611, -0.047358923, 0.46343532, -0.8848644, -0.13933533, 0.119656645, -0.06428145)
 joint_constraints/damping = 4.35
 
 [node name="AnimationPlayer" parent="Dwarf Walk" index="1" unique_id=843911789]
@@ -264,6 +276,39 @@ libraries/ = SubResource("AnimationLibrary_7nrcd")
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=1716826444]
 replication_config = SubResource("SceneReplicationConfig_s7avd")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="." unique_id=1392458848]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.736701e-09, 0.89645696, 0.111374855)
+mesh = SubResource("QuadMesh_fmvpc")
+surface_material_override/0 = SubResource("StandardMaterial3D_s7avd")
+
+[node name="SubViewport" type="SubViewport" parent="MeshInstance3D2" unique_id=1588618671]
+transparent_bg = true
+
+[node name="Control" type="Control" parent="MeshInstance3D2/SubViewport" unique_id=1724214839]
+visibility_layer = 4
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="MeshInstance3D2/SubViewport/Control" unique_id=417386027]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -11.5
+offset_right = 20.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 25
+text = "taeataetaetaetaetaetea"
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
 [connection signal="timeout" from="hunger_timer" to="." method="on_hunger_timer_timeout"]
