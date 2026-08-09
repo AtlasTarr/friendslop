@@ -1,0 +1,46 @@
+[gd_scene format=3 uid="uid://b1tyra3qflg6m"]
+
+[ext_resource type="Script" uid="uid://dw3dckbbe5bet" path="res://Assets/Items/door.gd" id="1_frn5m"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_fmvpc"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_ljq0q"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ljq0q"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_n3rd2"]
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_btgha"]
+properties/0/path = NodePath("AnimationPlayer:current_animation")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+
+[node name="Door" type="StaticBody3D" unique_id=1929049446]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, 0, 0)
+script = ExtResource("1_frn5m")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=31568461]
+transform = Transform3D(1.315, 0, 0, 0, 3.13, 0, 0, 0, 0.26, 0.658, 0, 0)
+shape = SubResource("BoxShape3D_fmvpc")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="CollisionShape3D" unique_id=71234236]
+mesh = SubResource("BoxMesh_ljq0q")
+
+[node name="Area3D" type="Area3D" parent="." unique_id=176797797]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.658, 0, 0.73178685)
+collision_mask = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D" unique_id=1742506202]
+shape = SubResource("BoxShape3D_ljq0q")
+
+[node name="Area3D2" type="Area3D" parent="." unique_id=1347359674]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.658, 0, -0.96665215)
+collision_mask = 2
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="Area3D2" unique_id=1711809253]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.24192029)
+shape = SubResource("BoxShape3D_n3rd2")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=626572352]
+replication_interval = 0.05
+replication_config = SubResource("SceneReplicationConfig_btgha")

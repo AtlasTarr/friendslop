@@ -84,9 +84,6 @@ script = ExtResource("1_dhpt7")
 [node name="Pivot" type="Node3D" parent="." unique_id=452251928]
 transform = Transform3D(1.0000002, 0, 0, 0, 1.0000002, 0, 0, 0, 1, 0.008004801, 0.7981962, -0.1878568)
 
-[node name="gun_container" type="Node3D" parent="Pivot" unique_id=1267505150]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.629326, -0.262489, -0.896693)
-
 [node name="Camera" type="Camera3D" parent="Pivot" unique_id=1721234971]
 transform = Transform3D(0.9999782, 0.0066185277, 0.00015648367, -0.006609803, 0.9994378, -0.032869235, -0.00037394743, 0.032867387, 0.9994597, 0, 0, 0)
 cull_mask = 3
@@ -113,6 +110,9 @@ near = 0.001
 [node name="interact_ray" type="RayCast3D" parent="Pivot/Camera" unique_id=1661367739]
 target_position = Vector3(0, 0, -2)
 collision_mask = 5
+
+[node name="gun_container" type="Node3D" parent="Pivot/Camera" unique_id=1267505150]
+transform = Transform3D(0.99997824, -0.0066098007, -0.00037394726, 0.006618524, 0.99943805, 0.03286738, 0.00015649028, -0.032869153, 0.9994596, 0.0002109271, -0.01853466, -0.5636194)
 
 [node name="look_target" parent="." unique_id=2134792113 instance=ExtResource("6_clk7w")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0533988, 0)
@@ -179,11 +179,11 @@ transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, -0.013
 bones/5/position = Vector3(0, -0.587, -0.042)
 
 [node name="Physical Bone mixamorig_Head" parent="Dwarf Walk/Skeleton3D/PhysicalBoneSimulator3D" parent_id_path=PackedInt32Array(362918074, 179035898) index="0" unique_id=1706729053]
-transform = Transform3D(-0.99992895, -0.006042868, 0.010280211, -0.0011455775, 0.90678376, 0.4215944, -0.011869568, 0.42155263, -0.9067263, -0.08074255, 1.0089633, -0.091307476)
+transform = Transform3D(-0.999929, -0.0060425946, 0.010278375, -0.0011461941, 0.90678704, 0.42158747, -0.01186778, 0.42154574, -0.9067295, -0.0807586, 1.0089688, -0.091310635)
 collision_layer = 0
 collision_mask = 0
-joint_offset = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.140697, -0.080839716, -0.10744316)
-body_offset = Transform3D(-0.9987939, -0.033461668, 0.035928603, -0.012958681, 0.88550144, 0.46445638, -0.047356308, 0.46343067, -0.884867, -0.13937205, 0.1196631, -0.064272195)
+joint_offset = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.14071287, -0.080844246, -0.10744782)
+body_offset = Transform3D(-0.998794, -0.0334612, 0.03592698, -0.012959383, 0.8855049, 0.46444958, -0.047354553, 0.4634239, -0.8848706, -0.13938805, 0.11966852, -0.06427565)
 joint_constraints/damping = 4.35
 
 [node name="AnimationPlayer" parent="Dwarf Walk" index="1" unique_id=843911789]

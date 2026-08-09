@@ -24,6 +24,7 @@ func _ready() -> void:
 
 
 func tube_create():
+	
 	multiplayer.peer_connected.connect(add_player)
 	multiplayer.peer_disconnected.connect(remove_player)
 	tube_client.create_session()
@@ -59,8 +60,6 @@ func add_player(peer_id: int):
 
 	var rand_x = randf_range(-5.0, 5.0)
 	var rand_z = randf_range(-5.0, 5.0)
-
-	new_player.position = Vector3(rand_x, 1.0, rand_z)
 	get_tree().current_scene.add_child(new_player, true)
 
 func remove_player(peer_id):
@@ -107,3 +106,13 @@ func _on_request_completed(_result, _response_code, _headers, body):
 		#tube_client.context.turn_servers.append(temp_ice)
 	#elif is_enabled:
 		#new_http_client.request("https://api.androodev.com/turn")
+
+@rpc("any_peer", "call_local", "reliable")
+func network_remove(node: NodePath):
+	var obj = get_node(node)
+	obj.queue_free()
+
+@rpc("any_peer", "call_local")
+func network_rotate(node: NodePath, Rotation: Vector3):
+	var obj = get_node(node)
+	obj.rotation = Rotation

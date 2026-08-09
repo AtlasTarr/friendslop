@@ -105,6 +105,7 @@ tls/enable_tls_v1.3=false
 [physics]
 
 3d/physics_engine="Jolt Physics"
+common/physics_interpolation=true
 
 [rendering]
 

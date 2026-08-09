@@ -11,7 +11,6 @@ var shot_by: CharacterBody3D
 func ray_test(delta):
 	var offset = Vector3(1.1, 1.1, 1.1)
 	var invert = Vector3(-1.1, -1.1, -1.1)
-	move(delta)
 	var target = ((velocity * offset) * invert) * delta
 	ray.target_position = target
 	if not ray.is_colliding() && get_contact_count() < 1:
@@ -35,10 +34,6 @@ func effector():
 				_on_timer_timeout()
 
 
-func move(delta):
-	global_transform.origin += velocity*delta
-	velocity -= velocity*delta
-	velocity.y -= gravity*delta
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):

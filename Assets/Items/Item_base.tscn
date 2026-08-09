@@ -1,0 +1,27 @@
+[gd_scene format=3 uid="uid://dhwuoqtustdhn"]
+
+[ext_resource type="Script" uid="uid://duwfe7bqt65or" path="res://Assets/Items/item_base.gd" id="1_6t0pa"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_fmvpc"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_ljq0q"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_fmvpc"]
+radius = 1.4977921
+
+[node name="ItemBase" type="RigidBody3D" unique_id=1225706020]
+script = ExtResource("1_6t0pa")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=285877891]
+shape = SubResource("BoxShape3D_fmvpc")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=342732291]
+mesh = SubResource("BoxMesh_ljq0q")
+
+[node name="Area3D" type="Area3D" parent="." unique_id=1484553790]
+collision_mask = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D" unique_id=500590882]
+shape = SubResource("SphereShape3D_fmvpc")
+
+[connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]

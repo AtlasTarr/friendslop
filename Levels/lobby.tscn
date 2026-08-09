@@ -3,6 +3,8 @@
 [ext_resource type="Script" uid="uid://gd6mff1l2ajt" path="res://Levels/test_scene.gd" id="1_x6ugl"]
 [ext_resource type="PackedScene" uid="uid://ccsvsjofwq2k6" path="res://player/player_transfer.tscn" id="2_vyyyl"]
 [ext_resource type="PackedScene" uid="uid://nwpm7ayk7wpm" path="res://misc/MM.tscn" id="3_ut3x2"]
+[ext_resource type="PackedScene" uid="uid://dhwuoqtustdhn" path="res://Assets/Items/Item_base.tscn" id="4_ut3x2"]
+[ext_resource type="PackedScene" uid="uid://b1tyra3qflg6m" path="res://Assets/Items/door.tscn" id="5_hkx0k"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_e6h1a"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -26,11 +28,9 @@ albedo_color = Color(0, 0.5973786, 0.4251012, 1)
 [node name="lobby" type="Node3D" unique_id=1927397471 groups=["level"]]
 script = ExtResource("1_x6ugl")
 PS = ExtResource("2_vyyyl")
-scene_name = null
-test_array = null
 
 [node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="." unique_id=1862022197]
-_spawnable_scenes = PackedStringArray("uid://ccsvsjofwq2k6", "uid://h10a844mah70", "uid://dpdrswus56jxc")
+_spawnable_scenes = PackedStringArray("uid://ccsvsjofwq2k6")
 spawn_path = NodePath("..")
 
 [node name="Control" parent="." unique_id=723947599 instance=ExtResource("3_ut3x2")]
@@ -65,5 +65,28 @@ surface_material_override/0 = SubResource("StandardMaterial3D_x6ugl")
 [node name="Camera3D" type="Camera3D" parent="." unique_id=138981975]
 transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 44.328564, 0)
 current = true
+
+[node name="ItemBase" parent="." unique_id=1225706020 instance=ExtResource("4_ut3x2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.3251276, -2.7146497, 6.7197657)
+Item_name = "key"
+
+[node name="CSGBox3D" type="CSGBox3D" parent="." unique_id=703051268]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.723682, -1.1425419, 8.759153)
+use_collision = true
+size = Vector3(8, 5, 8)
+
+[node name="CSGBox3D" type="CSGBox3D" parent="CSGBox3D" unique_id=351201220]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.08984375, -0.7330017, -3.8005633)
+operation = 2
+size = Vector3(1.1796875, 3.3377075, 1)
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="CSGBox3D" unique_id=719142070]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.32921124, 0)
+operation = 2
+size = Vector3(7, 4.5, 7)
+
+[node name="Door" parent="CSGBox3D" unique_id=96264605 instance=ExtResource("5_hkx0k")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.66206264, -0.507107, -3.8172278)
+locked = true
 
 [editable path="Control"]

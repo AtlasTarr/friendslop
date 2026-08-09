@@ -5,6 +5,8 @@ signal toggle_inventory()
 
 const objecct_scene = "res://quest_library/player/player_transfer.tscn"
 
+@export var inventory: Array[String]
+
 var mouse_sensitivity = 0.002
 
 @onready var camera = $Pivot/Camera
@@ -15,6 +17,8 @@ var mouse_sensitivity = 0.002
 @onready var interact_ray = $Pivot/Camera/interact_ray
 
 @export var mass : float = 1
+
+@export var interacting: = false
 
 var speed
 var air_speed
@@ -89,7 +93,10 @@ func _physics_process(delta):
 	self.scale.y = lerp(self.scale.y, temp_scale, delta * 3)
 	camera_2.global_transform = camera.global_transform
 
-
+	if Input.is_action_just_pressed("shoot"):
+		if !is_multiplayer_authority(): return
+		var dir = $Pivot/Camera.global_position.direction_to($Pivot/Camera/gun_container.global_position)
+		Global.rpc("shoot_ball", global_transform.origin, dir, 100)
 	if Input.is_action_just_pressed("crouch"):
 		if !is_multiplayer_authority(): return
 		temp_scale = 0.5
@@ -109,6 +116,11 @@ func _physics_process(delta):
 		else :
 			Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 			tab = false
+	if Input.is_action_just_pressed("interact"):
+		print("interact")
+		interacting = true
+	else:
+		interacting = false
 
 	if Input.is_action_pressed("sprint"):
 		if !is_multiplayer_authority(): return
@@ -164,7 +176,7 @@ func Move(delta):
 			anim_tree.set("parameters/conditions/idle",true)
 			velocity.z = lerp(velocity.z, 0.0, delta + 0.05)
 			velocity.x = lerp(velocity.x, 0.0, delta + 0.05)
-		if Input.is_action_just_pressed("jump") and is_on_floor():
+		if Input.is_action_pressed("jump") and is_on_floor():
 			velocity.y = jump
 			anim_state_clear()
 			anim_tree.set("parameters/conditions/jump", true)
