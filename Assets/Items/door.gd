@@ -1,19 +1,26 @@
 extends StaticBody3D
 @export var locked:= false
-var open = false
+@export var open = false
 var opened = false
 @export var unlocker:= "key"
 var initial_rot: Vector3 
 var open_rot: Vector3 
 var temp_rot: Vector3
+@export var added:= false
+
+const DOOR = preload("res://Assets/Items/door.tscn")
+
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	initial_rot.y = rotation.y
 	open_rot.y = rotation.y + 2
-
+	multiplayer.peer_connected.connect(virtualise)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
+	if !added:
+		virtualise()
 	var bodys: = []
 	var ovl = $Area3D.get_overlapping_bodies()
 	var ovl2 = $Area3D2.get_overlapping_bodies()
@@ -24,7 +31,7 @@ func _process(delta: float) -> void:
 			if body.interacting:
 				if locked:
 					if body.inventory.has(unlocker):
-						locked = false
+						Network.rpc("set_variables", get_path(), ["locked"],[false])
 						open = true
 				if open && !locked:
 					open = false
@@ -34,4 +41,11 @@ func _process(delta: float) -> void:
 					open = true
 					print("open")
 					Network.rpc("network_rotate", self.get_path(), open_rot)
-	
+
+func virtualise():
+	print("virtualised")
+	self.added = true
+	Network.network_spawn(DOOR, str(name, "net"))
+	var new_door = get_tree().current_scene.get_node(str("/root/lobby/", name, "net")).get_path()
+	Network.set_variables(new_door, ["initial_rot","open_rot","locked","unlocker","added","position","rotation"],[initial_rot,open_rot,locked,unlocker,true,position,rotation])
+	Network.rpc("network_remove", get_path())

@@ -3,6 +3,8 @@ extends Node
 const PLAYER = preload("res://player/player_transfer.tscn")
 const TUBE_CONTEXT = preload("res://friendslop.tres")
 
+var multiplayer_spawner: MultiplayerSpawner
+
 var enet_peer := ENetMultiplayerPeer.new()
 var tube_client := TubeClient.new()
 var tube_enabled := true
@@ -15,6 +17,7 @@ var PORT = 9999
 var IP_ADDRESS = '127.0.0.1'
 
 func _ready() -> void:
+	multiplayer_spawner = get_tree().current_scene.get_node("root/lobby/MultiplayerSpawner")
 	new_http_client.request_completed.connect(_on_request_completed)
 	get_tree().root.add_child.call_deferred(new_http_client, true)
 
@@ -22,6 +25,10 @@ func _ready() -> void:
 		tube_client.context = TUBE_CONTEXT
 		get_tree().root.add_child.call_deferred(tube_client,true)
 
+func network_spawn(scene: PackedScene, _name: String):
+	var new_obj = scene.instantiate()
+	new_obj.name = _name
+	get_tree().current_scene.add_child(new_obj, true)
 
 func tube_create():
 	
@@ -61,6 +68,7 @@ func add_player(peer_id: int):
 	var rand_x = randf_range(-5.0, 5.0)
 	var rand_z = randf_range(-5.0, 5.0)
 	get_tree().current_scene.add_child(new_player, true)
+	#rpc(set_variables(child.get_path(), ))
 
 func remove_player(peer_id):
 	#if peer_id == 1:
@@ -110,9 +118,21 @@ func _on_request_completed(_result, _response_code, _headers, body):
 @rpc("any_peer", "call_local", "reliable")
 func network_remove(node: NodePath):
 	var obj = get_node(node)
-	obj.queue_free()
+	obj.position = Vector3(0,-10000,0)
 
 @rpc("any_peer", "call_local")
+func network_add(scene: PackedScene, _name: String):
+	network_spawn(scene, _name)
+
+@rpc("any_peer", "call_local", "reliable")
+func set_variables(object: NodePath,variables: Array, values: Array):
+	var obj = get_node(object)
+	for index in variables.size():
+		if (variables[index]) in obj:
+			obj.set(variables[index], values[index])
+
+
+@rpc("any_peer", "call_local", "reliable")
 func network_rotate(node: NodePath, Rotation: Vector3):
 	var obj = get_node(node)
 	obj.rotation = Rotation

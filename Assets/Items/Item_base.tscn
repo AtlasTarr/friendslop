@@ -9,6 +9,11 @@
 [sub_resource type="SphereShape3D" id="SphereShape3D_fmvpc"]
 radius = 1.4977921
 
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_6t0pa"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+
 [node name="ItemBase" type="RigidBody3D" unique_id=1225706020]
 script = ExtResource("1_6t0pa")
 
@@ -23,5 +28,8 @@ collision_mask = 2
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D" unique_id=500590882]
 shape = SubResource("SphereShape3D_fmvpc")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=1988688]
+replication_config = SubResource("SceneReplicationConfig_6t0pa")
 
 [connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]

@@ -85,8 +85,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.32921124, 0)
 operation = 2
 size = Vector3(7, 4.5, 7)
 
-[node name="Door" parent="CSGBox3D" unique_id=96264605 instance=ExtResource("5_hkx0k")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.66206264, -0.507107, -3.8172278)
+[node name="Door" parent="." unique_id=96264605 instance=ExtResource("5_hkx0k")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.385745, -1.6496489, 4.9419255)
 locked = true
 
 [editable path="Control"]

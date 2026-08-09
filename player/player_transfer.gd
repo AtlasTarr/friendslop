@@ -117,6 +117,7 @@ func _physics_process(delta):
 			Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 			tab = false
 	if Input.is_action_just_pressed("interact"):
+		if !is_multiplayer_authority(): return
 		print("interact")
 		interacting = true
 	else:

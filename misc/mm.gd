@@ -19,7 +19,7 @@ func _ready() -> void:
 	if tube_enabled:
 		tube_client.context = FRIENDSLOP
 		tube_client.peer_signaling_max_attempts = 20
-		tube_client.peer_signaling_timeout = 30
+		tube_client.peer_signaling_timeout = 2
 		get_tree().root.call_deferred("add_child", tube_client)
 	
 	session_id.text_changed.connect(session_updated)
