@@ -1,4 +1,5 @@
 extends StaticBody3D
+class_name Door
 @export var locked:= false
 @export var open = false
 var opened = false
@@ -34,13 +35,19 @@ func _process(delta: float) -> void:
 						Network.rpc("set_variables", get_path(), ["locked"],[false])
 						open = true
 				if open && !locked:
-					open = false
-					print("close")
-					Network.rpc("network_rotate", self.get_path(), initial_rot)
+					Network.rpc("set_variables", get_path(), ["open"],[false])
 				elif !open && !locked:
-					open = true
-					print("open")
-					Network.rpc("network_rotate", self.get_path(), open_rot)
+					Network.rpc("set_variables", get_path(), ["open"],[true])
+	
+	if rotation.y > initial_rot.y && !open:
+		rotation.y = lerp(rotation.y, initial_rot.y,delta)
+		print(str("closing"))
+	if rotation.y < open_rot.y && open:
+		rotation.y = lerp(rotation.y, open_rot.y,delta)
+		print("opening")
+	Network.rpc("network_rotate", get_path(), rotation)
+
+
 
 func virtualise():
 	print("virtualised")
@@ -49,3 +56,4 @@ func virtualise():
 	var new_door = get_tree().current_scene.get_node(str("/root/lobby/", name, "net")).get_path()
 	Network.set_variables(new_door, ["initial_rot","open_rot","locked","unlocker","added","position","rotation"],[initial_rot,open_rot,locked,unlocker,true,position,rotation])
 	Network.rpc("network_remove", get_path())
+	var new_door_n = get_node(new_door)

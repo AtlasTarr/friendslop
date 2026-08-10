@@ -31,7 +31,7 @@ var tab: = false
 
 var start: bool = true
 
-var jump = 10
+var jump = 5.5
 
 @onready var pivot: Node3D = $Pivot
 
@@ -47,6 +47,8 @@ var running: bool = false
 
 var tube_client := TubeClient.new()
 const FRIENDSLOP = preload("res://friendslop.tres")
+const BULLET = preload("res://misc/bullet.tscn")
+var bullets: Array = []
 
 var health = 100
 
@@ -61,17 +63,14 @@ func _ready():
 	speed = 10
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 
-func damage(damage: float, source: Object):
+func damage(damage: float):
+	if !is_multiplayer_authority(): return
 	health -= damage
-	death_state_checker(source)
+	print(health)
 
-func death_state_checker(damage_source: Object):
+func death_state_checker():
 	if !is_multiplayer_authority(): return
 	if health <= 0:
-		if "shot_by" in damage_source:
-			var shot_by = damage_source.shot_by
-			if "camera" in shot_by:
-				shot_by.camera.current = true
 		queue_free()
 
 func heal(heal_amount: int):
@@ -90,13 +89,21 @@ func _unhandled_input(event):
 		interact()
 
 func _physics_process(delta):
+	
 	self.scale.y = lerp(self.scale.y, temp_scale, delta * 3)
 	camera_2.global_transform = camera.global_transform
 
 	if Input.is_action_just_pressed("shoot"):
 		if !is_multiplayer_authority(): return
 		var dir = $Pivot/Camera.global_position.direction_to($Pivot/Camera/gun_container.global_position)
-		Global.rpc("shoot_ball", global_transform.origin, dir, 100)
+		Network.rpc("network_add", BULLET, "bullet")
+		
+		for child in get_tree().current_scene.get_children():
+			if child is Bullet:
+				bullets.append(child)
+		Network.rpc("set_variables", bullets[bullets.size() -1 ].get_path(), ["position"], [$Pivot/Camera/gun_container.global_transform.origin])
+		var bullet = bullets[bullets.size()-1]
+		bullet.apply_central_impulse(dir * 100)
 	if Input.is_action_just_pressed("crouch"):
 		if !is_multiplayer_authority(): return
 		temp_scale = 0.5
@@ -126,18 +133,16 @@ func _physics_process(delta):
 	if Input.is_action_pressed("sprint"):
 		if !is_multiplayer_authority(): return
 		speed = run_speed
+		running = true
+	if Input.is_action_pressed("sprint"):
 		var fov = lerp(camera.fov, base_fov + 20, delta+ 0.1)
 		camera.fov = fov
-		running = true
-		
-	elif Input.is_action_just_released("sprint"):
+	else:
 		if !is_multiplayer_authority(): return
 		speed = base_speed
 		running = false
-	elif camera.fov != base_fov:
 		var fov = lerp(camera.fov, base_fov, delta + 0.05)
 		camera.fov = fov
-		
 	
 	# Get the input direction and handle the movement/deceleration.
 	# As good practice, you should replace UI actions with custom gameplay actions.

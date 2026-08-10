@@ -131,8 +131,8 @@ func set_variables(object: NodePath,variables: Array, values: Array):
 		if (variables[index]) in obj:
 			obj.set(variables[index], values[index])
 
-
 @rpc("any_peer", "call_local", "reliable")
 func network_rotate(node: NodePath, Rotation: Vector3):
 	var obj = get_node(node)
-	obj.rotation = Rotation
+	if not obj == null:
+		obj.rotation = lerp(obj.rotation,Rotation,0.02)
