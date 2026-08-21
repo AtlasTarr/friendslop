@@ -34,7 +34,7 @@ var start: bool = true
 var jump = 5.5
 
 @onready var pivot: Node3D = $Pivot
-
+var anim_model
 @onready var anim_tree: AnimationTree = $"Dwarf Walk/AnimationTree"
 @onready var anim_player: AnimationPlayer = $"Dwarf Walk/AnimationPlayer"
 @onready var label: Label = %Label
@@ -49,19 +49,35 @@ var tube_client := TubeClient.new()
 const FRIENDSLOP = preload("res://friendslop.tres")
 const BULLET = preload("res://misc/bullet.tscn")
 var bullets: Array = []
+@onready var dwarf_walk: Node3D = $"Dwarf Walk"
+@export var skin_colour = null
 
 var health = 100
 
+func _enter_tree() -> void:
+	set_multiplayer_authority(name.to_int())
+
 func _ready():
 	tube_client.context = FRIENDSLOP
-	set_multiplayer_authority(name.to_int())
-	if !is_multiplayer_authority(): 
+	if !is_multiplayer_authority():
 		return
 	label.text = Global.Username
 	username = Global.Username
 	camera.current = true
 	speed = 10
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+
+@rpc("any_peer", "call_local")
+func set_colour(colour: Color):
+	if skin_colour == null:
+		print("set_colour to ", colour)
+		
+		$"Dwarf Walk".update_colour(colour)
+		Network.set_variables(get_path(), ["skin_colour"], [colour])
+	else:
+		$"Dwarf Walk".update_colour(skin_colour)
+		print("skin colour", skin_colour)
+	
 
 func damage(damage: float):
 	if !is_multiplayer_authority(): return

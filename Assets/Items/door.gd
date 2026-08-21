@@ -40,10 +40,10 @@ func _process(delta: float) -> void:
 					Network.rpc("set_variables", get_path(), ["open"],[true])
 	
 	if rotation.y > initial_rot.y && !open:
-		rotation.y = lerp(rotation.y, initial_rot.y,delta)
+		rotation.y = lerp(rotation.y, initial_rot.y,delta + 0.04)
 		print(str("closing"))
 	if rotation.y < open_rot.y && open:
-		rotation.y = lerp(rotation.y, open_rot.y,delta)
+		rotation.y = lerp(rotation.y, open_rot.y,delta + 0.04)
 		print("opening")
 	Network.rpc("network_rotate", get_path(), rotation)
 
